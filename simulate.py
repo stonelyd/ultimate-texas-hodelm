@@ -13,7 +13,7 @@ totalGain = 0
 totalBet = 0
 
 for i in range(simulateTimes):
-    game = Game(True)
+    game = Game(False)
     gain, bet = game.playGame()
     totalGain += gain
     totalBet += bet

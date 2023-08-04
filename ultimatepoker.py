@@ -56,11 +56,16 @@ class Game:
         self._community = self._community + [self._deck.pop() for __ in range(2)]
         # print(self._community)
 
+        if self._bet.play == 0:
+            self._bet.play = strategy.round3Bet(self._player, self._community)
+
         if self.stdout:
             print ("\nRound3: ")
             print ("Dealer: " + ", ".join([str(c) for c in self._dealer]))
             print ("Player: " + ", ".join([str(c) for c in self._player]))
             print ("Community: " + ", ".join([str(c) for c in self._community]))
+            print ("==Play Bet==")
+            print ("\t", self._bet.play)            
 
         self._tPlayer = utils.CalculateHands.converToTreys(self._player)
         self._tCommunity = utils.CalculateHands.converToTreys(self._community)
@@ -98,16 +103,25 @@ class Game:
 
     def gainFromWin(self):
         res = self._bet.play + BlindBet.Table[self._playerClass] * self._bet.blind
-        res += self._bet.ante if self._dealerClass >= 8 else 0 # Dealer needs to qualify
+        if self._dealerClass <= 8:
+            # print("Dealer Did not Qualify!")
+            res += self._bet.ante  
+        else:
+            print("Dealer Did not Qualify!")
+            res += 0 # Dealer needs to qualify
         return res
-
+  
     def gainFromLose(self):
          res = 0 - self._bet.play - self._bet.blind
-         res -= self._bet.ante if self._dealerClass >= 8 else 0 # Dealer needs to qualify
+         if self._dealerClass <= 8:
+            res -= self._bet.ante
+         else:
+            print("Dealer Did not Qualify!")
+            res -= 0 # Dealer needs to qualify
          return res
 
     def gainFromLoseFold(self):
-         res = 0 - self._bet.play - self._bet.blind
+         res = 0 - self._bet.ante - self._bet.blind
         #  res -= self._bet.ante if self._dealerClass >= 8 else 0 # Dealer needs to qualify
          return res    
 

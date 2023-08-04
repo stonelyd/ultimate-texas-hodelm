@@ -84,6 +84,7 @@ def round3Bet(playhand, community):
 
     current = playhand + community
 
+    # print("Rd3 Class:", _class)
     # Hidden pair or better.
     if (_class <= 8): # pair
         return 1.0
