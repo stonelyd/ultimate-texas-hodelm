@@ -1,7 +1,6 @@
 __author__ = 'monica_wang'
-import card
 
-
+from treys import Card as tCard
 
 class CalculateHands:
     def __init__(self, dealer, player, community):
@@ -21,6 +20,11 @@ class CalculateHands:
 
         return blind
 
+    def converToTreys(hand):
+
+        _temp = [str(c).replace('♥', 'h').replace('♣', 'c').replace('♦', 'd').replace('♠', 's') for c in  hand]
+        tHand = [tCard.new(d) for d in _temp]
+        return tHand
 
 
 

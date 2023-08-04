@@ -1,4 +1,3 @@
-__author__ = 'monica_wang'
 '''
 Royal flush	500 to 1
 Straight flush	50 to 1
@@ -8,21 +7,31 @@ Flush	3 to 2
 Straight	1 to 1
 '''
 
-from hand import HandType
+#     MAX_TO_RANK_CLASS: dict[int, int] = {
+#         MAX_ROYAL_FLUSH: 0,
+#         MAX_STRAIGHT_FLUSH: 1,
+#         MAX_FOUR_OF_A_KIND: 2,
+#         MAX_FULL_HOUSE: 3,
+#         MAX_FLUSH: 4,
+#         MAX_STRAIGHT: 5,
+#         MAX_THREE_OF_A_KIND: 6,
+#         MAX_TWO_PAIR: 7,
+#         MAX_PAIR: 8,
+#         MAX_HIGH_CARD: 9
+#     }
 
 class BlindBet:
     Table = {
-            HandType.UNDEFINED: 0.0,
-            HandType.HIGH_CARD: 0.0,
-            HandType.PAIR: 0.0,
-            HandType.TWO_PAIR: 0.0,
-            HandType.THREE_OF_A_KIND: 4.0,
-            HandType.STRAIGHT: 1.0,
-            HandType.FLUSH: 1.5,
-            HandType.FULL_HOUSE: 3.0,
-            HandType.FOUR_OF_A_KIND: 10.0,
-            HandType.STRAIGHT_FLUSH: 50.0,
-            HandType.ROYAL_FLUSH: 500.0
+            9: 0.0,
+            8: 0.0,
+            7: 0.0,
+            6: 0.0,
+            5: 1.0,
+            4: 1.5,
+            3: 3.0,
+            2: 10.0,
+            1: 50.0,
+            0: 500.0
     }
 
 
