@@ -11,22 +11,22 @@ def round1Bet(hand):
         raise Exception("wrong number of hand")
     hcard, lcard = sorted(hand, reverse=True)
 
-    print('hcard:', hcard)
-    print('lcard:', lcard)
+    # print('hcard:', hcard)
+    # print('lcard:', lcard)
     if hcard.rank == Rank('A'):
-         print("You have an ACE!!!")
+        #  print("You have an ACE!!!")
          return 4.0
     
     if (hcard.rank == Rank('K') and ((lcard.rank > Rank('4'))  or (hcard.suit == lcard.suit))):
-        print('you have a KING!!!')
+        # print('you have a KING!!!')
         return 4.0
 
     if (hcard.rank == Rank('Q') and ((lcard.rank > Rank('7'))  or ((hcard.suit == lcard.suit) and (lcard.rank > Rank('5'))))):
-        print('you have a Queen!!!')
+        # print('you have a Queen!!!')
         return 4.0
 
     if (hcard.rank == Rank('J') and ((lcard.rank > Rank('9'))  or ((hcard.suit == lcard.suit) and (lcard.rank > Rank('7'))))):
-        print('you have a Queen!!!')
+        # print('you have a Queen!!!')
         return 4.0    
     # if hcard.getRank() == 'J' and (Card.VALUES[lcard.getRank()] > 9 or (hcard.getSuit() == lcard.getSuit()) and Card.VALUES[lcard.getRank()] > 7):
     

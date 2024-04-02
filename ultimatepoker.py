@@ -75,10 +75,6 @@ class Game:
         self._dealerScore = self._eval.evaluate(self._tCommunity, self._tDealer)
         self._playerClass = self._eval.get_rank_class(self._playerScore)
         self._dealerClass = self._eval.get_rank_class(self._dealerScore)
-    
-        # self._dealerHand = Hand(self._dealer+self._community)
-        print("PlayerScore:", self._playerScore, "   Player Class:", self._playerClass, " ", self._eval.class_to_string(self._playerClass))
-        print("DealerScore:", self._dealerScore, "   Dealer Class:", self._dealerClass, " ", self._eval.class_to_string(self._dealerClass))
 
         if self._bet.play != 0:
             # result = compareHands(self._playerHand, self._dealerHand)
@@ -97,8 +93,13 @@ class Game:
                     print ("Push")
         else:
             self._gain = self.gainFromLoseFold()
-            if self.stdout:
-                print ("Player Fold!")
+            # if self.stdout:
+            print ("Player Fold!")
+        
+        if (self._playerClass <= 2):  # Print out big hands
+            print("PlayerScore:", self._playerScore, "   Player Class:", self._playerClass, " ", self._eval.class_to_string(self._playerClass))
+            print("DealerScore:", self._dealerScore, "   Dealer Class:", self._dealerClass, " ", self._eval.class_to_string(self._dealerClass))
+            print("Gain: ", self._gain)
 
 
     def gainFromWin(self):
@@ -107,7 +108,7 @@ class Game:
             # print("Dealer Did not Qualify!")
             res += self._bet.ante  
         else:
-            print("Dealer Did not Qualify!")
+            # print("Dealer Did not Qualify!")
             res += 0 # Dealer needs to qualify
         return res
   
@@ -116,7 +117,7 @@ class Game:
          if self._dealerClass <= 8:
             res -= self._bet.ante
          else:
-            print("Dealer Did not Qualify!")
+            # print("Dealer Did not Qualify!")
             res -= 0 # Dealer needs to qualify
          return res
 
