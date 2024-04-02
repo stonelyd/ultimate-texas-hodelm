@@ -7,19 +7,34 @@ import utils
 from treys import Evaluator
 
 def round1Bet(hand):
+
+
     if len(hand) != 2:
         raise Exception("wrong number of hand")
     hcard, lcard = sorted(hand, reverse=True)
 
+
     # print('hcard:', hcard)
     # print('lcard:', lcard)
     if hcard.rank == Rank('A'):
-        #  print("You have an ACE!!!")
-         return 4.0
-    
-    if (hcard.rank == Rank('K') and ((lcard.rank > Rank('4'))  or (hcard.suit == lcard.suit))):
-        # print('you have a KING!!!')
+        # print("R1: ACE!!!")
         return 4.0
+    
+    if ( (hcard.rank == Rank('K')) and (lcard.rank > Rank('4'))):
+        # print('R1: KING + 5 or better!!!')
+        return 4.0
+
+    if ( (hcard.rank == Rank('K')) and (hcard.suit == lcard.suit) ):
+        # print('r1: KING + Suited !!!')
+        return 4.0
+
+    if hcard.rank == lcard.rank: # Pair
+        if hand == Hand('22'):
+            # print('Pocket Duces!!!!')
+            return 0.0
+        else:
+            # print('R1: Pocket Pair!!!!')
+            return 4.0        
 
     if (hcard.rank == Rank('Q') and ((lcard.rank > Rank('7'))  or ((hcard.suit == lcard.suit) and (lcard.rank > Rank('5'))))):
         # print('you have a Queen!!!')

@@ -1,6 +1,7 @@
 __author__ = 'David Stonely'
 from ultimatepoker import Game
 import sys
+from uthsim import Uthsim
 
 try:
     simulateTimes = int(sys.argv[1])
@@ -9,7 +10,8 @@ except IndexError or ValueError:
     exit(1)
 
 
-stack = 12000
+basicsim = Uthsim(stack=12000,  ante=100)
+stack = 200000
 ante = 100
 totalGain = 0
 totalBet = 0

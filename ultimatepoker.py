@@ -103,7 +103,7 @@ class Game:
             print ("Dealer: " + ", ".join([str(c) for c in self._dealer]))
             print ("Player: " + ", ".join([str(c) for c in self._player]))
             print ("Community: " + ", ".join([str(c) for c in self._community]))
-            exit()
+
 
 
     def gainFromWin(self):
@@ -131,8 +131,11 @@ class Game:
          return res    
 
     def playGame(self):
+        # print('-------------- R1 -----------------------------')
         self.startRound1()
+        # print('-------------- R2 -----------------------------')
         self.startRound2()
+        # print('-------------- R3 -----------------------------')
         self.startRound3()
         if self.stdout:
             print ("\n==GAIN THIS ROUND==")
