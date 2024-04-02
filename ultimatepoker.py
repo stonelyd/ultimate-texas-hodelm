@@ -94,12 +94,16 @@ class Game:
         else:
             self._gain = self.gainFromLoseFold()
             # if self.stdout:
-            print ("Player Fold!")
+            # print ("Player Fold!")
         
-        if (self._playerClass <= 2):  # Print out big hands
+        if (self._playerClass <= 1):  # Print out big hands
             print("PlayerScore:", self._playerScore, "   Player Class:", self._playerClass, " ", self._eval.class_to_string(self._playerClass))
             print("DealerScore:", self._dealerScore, "   Dealer Class:", self._dealerClass, " ", self._eval.class_to_string(self._dealerClass))
             print("Gain: ", self._gain)
+            print ("Dealer: " + ", ".join([str(c) for c in self._dealer]))
+            print ("Player: " + ", ".join([str(c) for c in self._player]))
+            print ("Community: " + ", ".join([str(c) for c in self._community]))
+            exit()
 
 
     def gainFromWin(self):

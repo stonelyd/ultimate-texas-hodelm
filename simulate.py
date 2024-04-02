@@ -9,7 +9,7 @@ except IndexError or ValueError:
     exit(1)
 
 
-stack = 10000
+stack = 12000
 ante = 100
 totalGain = 0
 totalBet = 0
