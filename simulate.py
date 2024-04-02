@@ -1,4 +1,4 @@
-__author__ = 'monica_wang'
+__author__ = 'David Stonely'
 from ultimatepoker import Game
 import sys
 
