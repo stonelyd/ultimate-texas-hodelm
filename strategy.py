@@ -34,6 +34,8 @@ def round1Bet(hand):
             return 0.0
         else:
             # print('R1: Pocket Pair!!!!')
+            # print('hcard:', hcard)
+            # print('lcard:', lcard)
             return 4.0        
 
     if (hcard.rank == Rank('Q') and ((lcard.rank > Rank('7'))  or ((hcard.suit == lcard.suit) and (lcard.rank > Rank('5'))))):
@@ -63,10 +65,18 @@ def round2Bet(hand, community):
 
     # print("Class:", _class)
     
-    #Two pair or better.
-    if (_class <= 7): # two pair
-        # print('Two Pair or better!!!!')
+    #strieght or better.
+    if (_class <= 6): # strieght
         return 2.0
+    
+    #Two pair or better.
+    if (_class == 7): # two pair
+        # print('Two Pair')
+        for c in hand:
+            for xx in community:
+                if c.rank == xx.rank:
+                    return 2.0
+        return 0.0
 
     #Hidden pair*, except pocket deuces.
     if _class == 8: # Pair
@@ -74,8 +84,11 @@ def round2Bet(hand, community):
             # print('Pocket Duces!!!!')
             return 0.0
         else:
-            # print('Hidden Pair!!!!')
-            return 2.0
+            for c in hand:
+                 for xx in community:
+                    if c.rank == xx.rank:                      
+                        return 2.0
+            return 0.0
 
     #Four to a flush, including a hidden 10 or better to that flush
     suits = [s.suit for s in current]
@@ -84,25 +97,32 @@ def round2Bet(hand, community):
         if suits.count(x) >= 4:
             if (hand[0].suit == x and hand[0].rank >= Rank('T')) or  (hand[1].suit == x and hand[1].rank >= Rank('T')):
                 # print('Four to a flush, including a hidden 10 or better to that flush')
+                # print ("Player: " + ", ".join([str(c) for c in hand]))
+                # print ("Community: " + ", ".join([str(c) for c in community]))
                 return 2.0
     return 0.0
 
-def round3Bet(playhand, community):
+def round3Bet(hand, community):
     _eval = Evaluator()
-    if len(playhand) != 2 or len(community) != 5:
+    if len(hand) != 2 or len(community) != 5:
         raise Exception("wrong number of hand")
 
-    _hand = utils.CalculateHands.converToTreys(playhand)
+    _hand = utils.CalculateHands.converToTreys(hand)
     _community = utils.CalculateHands.converToTreys(community)
     _current = _eval.evaluate(_community, _hand)
     _class = _eval.get_rank_class(_current)
 
-    current = playhand + community
+    current = hand + community
 
     # print("Rd3 Class:", _class)
     # Hidden pair or better.
     if (_class <= 8): # pair
-        return 1.0
+        for c in hand:
+            for xx in community:
+                if c.rank == xx.rank:                      
+                    return 1.0
+                    
+        return 0.0
 
     # #Less than 21 cards dealer outs beat you
     # minCardRankValueinHand = min([Card.VALUES[c.getRank()]for c in current.hand])

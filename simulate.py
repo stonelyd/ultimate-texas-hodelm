@@ -10,60 +10,34 @@ except IndexError or ValueError:
     exit(1)
 
 
-basicsim = Uthsim(stack=12000,  ante=100)
-stack = 200000
-ante = 100
-totalGain = 0
-totalBet = 0
-maxStack = 0
-wins = 0
-losses = 0
-pushes = 0
-winstreak = 0
-losestreak = 0
-maxwinstreak = 0
-maxlosestreak = 0
+basicsim100 = Uthsim(stack=12000,  ante=100, name="Sim100")
+basicsim25 = Uthsim(stack=12000,  ante=25, name="Sim25")
 
+result100 = True
+result25 = True
 
 for i in range(simulateTimes):
-    print("================== Game ===============", i)
     game = Game(False)
     gain, bet = game.playGame()
-    # print (gain)
-    totalGain += gain
-    totalBet += bet
-    stack += (gain * ante) 
-    if (stack > maxStack):
-        maxStack = stack
 
-    if (gain > 0):
-        wins += 1 
-        winstreak += 1
-        losestreak = 0
-    elif (gain < 0):
-        losses += 1
-        losestreak += 1
-        winstreak = 0        
-    else:
-        pushes += 1          
+    if (result100):
+        result100 = basicsim100.process_game(gain=gain, bet=bet)
+        if (result100 == False):
+            print("================== Basic 100 Game ===============", i)
+            # break
 
-    if (losestreak > maxlosestreak):
-        maxlosestreak = losestreak
+    if (result25):
+        result25 = basicsim25.process_game(gain=gain, bet=bet)
+        if (result25 == False):
+            print("================== Basic 25 Game ===============", i)
+            # break    
 
-    if (winstreak > maxwinstreak):
-        maxwinstreak = winstreak
 
-    if (stack < 0):
-        print("No Money left!!!")
+    if ((result25 == False) & (result100 == False)):
+        print("No more active sims")
         break
 
 
-print ("=============Simulation Result================")
-print ("Wins:", wins, " Losses:", losses, " Push:", pushes)
-print ("Max Win Streak:", maxwinstreak, "Max Lose Streak:", maxlosestreak)
-print ("Runs:", simulateTimes," totalGain: ", totalGain)
-print ("Runs:", simulateTimes," totalBet: ", totalBet)
-print ("Runs:", simulateTimes," Ratio: ", totalGain/totalBet)
-print ("Runs:", simulateTimes," Stack: ", stack)
-print ("Runs:", simulateTimes," maxStack: ", maxStack)
+basicsim100.print_summary()
+basicsim25.print_summary()
 
